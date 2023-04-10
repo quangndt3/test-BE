@@ -126,13 +126,20 @@ const products = [
 
 import express from "express";
 import productRouter from "./routers/product";
+import categoryRouter from "./routers/category"
 import mongoose  from "mongoose";
 import routerUser from "./routers/user";
+import uploadRouter from "./routers/upload"
+import commentRouter from "./routers/comment"
+import cors from "cors"
 const app = express();
 app.use(express.json());
-
+app.use(cors())
 app.use("/api", productRouter);
 app.use("/api", routerUser)
+app.use("/api", categoryRouter)
+app.use("/api", uploadRouter)
+app.use("/api", commentRouter);
 mongoose.connect("mongodb://127.0.0.1:27017/we17309").then(()=> console.log('kết nốt'))
 
 export const viteNodeApp = app;
