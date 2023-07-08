@@ -8,17 +8,17 @@ export const checkPermission = async (req, res, next) => {
         }
        
         // lấy jwt token từ header
-        const token = req.headers.authorization.split(" ")[1];  
+        const token = req.headers.authorization.split(" ")[1];      
         // xác thực jwt token
-        jwt.verify(token, "banThayDat", async (err, payload) => {
+        jwt.verify(token, "quang", async (err, payload) => {
             if (err) {
                 if (err.name === "JsonWebTokenError") {
-                    return res.json({
+                    return res.status(401).json({
                         message: "Token không hợp lệ",
                     });
                 }
                 if (err.name === "TokenExpiredError") {
-                    return res.json({
+                    return res.status(401).json({
                         message: "Token hết hạn",
                     });
                 }

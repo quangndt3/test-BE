@@ -1,8 +1,12 @@
+import Joi from "joi";
 import Category from "../models/category";
 import Product from "../models/product";
+const categorySchema = Joi.object({
+    name: Joi.string().required()
+})
 export const getAll = async (req, res) => {
     try {
-        const categories = await Category.find();
+        const categories = await Category.find().populate("products");
         if (categories.length === 0) {
             return res.json({
                 message: "Không có danh mục nào",
@@ -37,6 +41,11 @@ export const get = async (req, res) => {
 };
 export const create = async (req, res) => {
     try {
+        const { error } = categorySchema.validate(req.body);
+        if (error) {
+            const errors = error.details.map((message) => ({ message }));
+            return res.status(400).json({ errors });
+        }
         const category = await Category.create(req.body);
         if (!category) {
             return res.status(400).json({

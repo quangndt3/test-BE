@@ -116,7 +116,8 @@ export const signup = async (req, res) => {
         message: "Mật khẩu không đúng",
       });
     }
-    const token = Jwt.sign({ _id: checkEmail._id },"banThayDat", { expiresIn: "1h" });
+    const token = Jwt.sign({ _id: checkEmail._id },"quang");
+    // , { expiresIn: "1h" }
     checkEmail.password = undefined
     return res.json({
       message: "Đăng nhập thành công",
