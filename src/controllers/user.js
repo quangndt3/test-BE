@@ -41,7 +41,7 @@ const userSignUpSchema = Joi.object({
 }),
   
 });
-export const signin = async (req, res) => {
+export const signup = async (req, res) => {
   try {
    
     const { name, email, password, rePassword,images } = req.body;
@@ -90,7 +90,7 @@ export const signin = async (req, res) => {
   }
 };
 
-export const signup = async (req, res) => {
+export const signin = async (req, res) => {
   try {
     const {email, password } = req.body;
     const {error} = userSignUpSchema.validate({

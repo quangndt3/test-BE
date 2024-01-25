@@ -1,10 +1,12 @@
 import express from "express"
 
+import { add, deleteColor, getAll, getOne, updateColor } from "../controllers/product_color";
 import { checkPermission } from "../middlewares/checkPermission";
-import { add, getAll, update } from "../controllers/product_color";
 
 const router = express.Router()
 router.get('/colors',getAll)
-router.post('/colors',add)
-router.patch('/colors',update)
+router.get('/colors/:id',getOne)
+router.post('/colors',checkPermission,add)
+router.patch('/colors/:id',checkPermission,updateColor)
+router.delete('/colors/:id',checkPermission,deleteColor)
 export default router

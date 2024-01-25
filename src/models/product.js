@@ -18,28 +18,43 @@ const productSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    images: [ ],
-    specifications:[
-      
+    images: [],
+    specifications: [],
+    attributes: [
+      {
+        version_id: {
+          type: mongoose.Types.ObjectId,
+          ref: "Product_version",
+        },
+        colors: [
+          {
+            color_id: {
+              type: mongoose.Types.ObjectId,
+              ref: "Product_color",
+            },
+            price: {
+              type: Number,
+            },
+            quantity: {
+              type: Number,
+            },
+          },
+        ],
+      },
     ],
-    attributes:[
-     
-    ],  
     categoryId: {
       type: mongoose.Types.ObjectId,
       ref: "Category",
     },
     comments: [
       {
-          type: mongoose.Types.ObjectId,
-          ref: "Comment",
+        type: mongoose.Types.ObjectId,
+        ref: "Comment",
       },
-  ],
-
+    ],
   },
   { timestamps: true, versionKey: false }
 );
-
 
 productSchema.plugin(mongoosePaginate);
 

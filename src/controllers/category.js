@@ -6,7 +6,13 @@ const categorySchema = Joi.object({
 })
 export const getAll = async (req, res) => {
     try {
-        const categories = await Category.find().populate("products");
+        const categories = await Category.find().populate({
+            path: "products",
+            populate:[
+                {path: "attributes.version_id"},
+                {path: "attributes.colors.color_id"},
+            ]
+        })
         if (categories.length === 0) {
             return res.json({
                 message: "Không có danh mục nào",
@@ -21,7 +27,13 @@ export const getAll = async (req, res) => {
 };
 export const get = async (req, res) => {
     try {
-        const category = await Category.findById(req.params.id);
+        const category = await Category.findById(req.params.id).populate({
+            path: "products",
+            populate:[
+                {path: "attributes.version_id"},
+                {path: "attributes.colors.color_id"},
+            ]
+        });
         console.log("category", category);
         if (!category) {
             return res.status(404).json({

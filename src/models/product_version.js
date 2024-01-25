@@ -6,7 +6,7 @@ const productVersionSchema = new mongoose.Schema(
         version: {
             type: String,
             require: true,
-            minLength: 3,
+            minLength: 2,
         },
     },
     { timestamps: true, versionKey: false }

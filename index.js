@@ -6,7 +6,9 @@ import mongoose  from "mongoose";
 import routerUser from "./src/routers/user";
 import productColorRouter from "./src/routers/product_color"
 import productVersionRouter from "./src/routers/product_version"
+import orderrouter from "./src/routers/order"
 import commentRouter from "./src/routers/comment"
+import couponeRouter from "./src/routers/coupon"
 import cors from "cors"
 export const app = express();
 app.use(express.json());
@@ -17,6 +19,7 @@ app.use("/api", categoryRouter)
 app.use("/api", productColorRouter)
 app.use("/api", commentRouter);
 app.use("/api", productVersionRouter);
-mongoose.connect("mongodb+srv://quangndt7:X2OjDX702ke09EXo@phonestore.qf4udr5.mongodb.net/phoneStore").then(()=> console.log('kết nốt'))
-
+app.use("/api", orderrouter);
+app.use("/api", couponeRouter);
+mongoose.connect("mongodb://127.0.0.1:27017/we17309").then(()=> console.log('kết nốt'))
 export const viteNodeApp = app;
