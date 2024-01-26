@@ -13,18 +13,9 @@ const user = new mongoose.Schema({
     password:{
         type: String,
     },
-    rePassword:{
-        type: String,
-    },
     role: {
         type: String,
         default: "member",
     },
-    comments: [
-        {
-            type: mongoose.Types.ObjectId,
-            ref: "Comment",
-        },
-    ],
 })
 export default mongoose.model("User", user)

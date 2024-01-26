@@ -9,47 +9,23 @@ const productSchema = new mongoose.Schema(
       require: true,
       minLength: 3,
     },
-    discount: {
+    price: {
       type: Number,
     },
-    original_price: {
-      type: Number,
-    },
-    description: {
+    desc: {
       type: String,
     },
-    images: [],
-    specifications: [],
-    attributes: [
+    images: [
       {
-        version_id: {
-          type: mongoose.Types.ObjectId,
-          ref: "Product_version",
+        url: {
+          type: String,
+          required: true,
         },
-        colors: [
-          {
-            color_id: {
-              type: mongoose.Types.ObjectId,
-              ref: "Product_color",
-            },
-            price: {
-              type: Number,
-            },
-            quantity: {
-              type: Number,
-            },
-          },
-        ],
-      },
-    ],
-    categoryId: {
-      type: mongoose.Types.ObjectId,
-      ref: "Category",
-    },
-    comments: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Comment",
+        public_id: {
+          type: String,
+          required: true,
+        },
+        _id: false
       },
     ],
   },
@@ -57,5 +33,4 @@ const productSchema = new mongoose.Schema(
 );
 
 productSchema.plugin(mongoosePaginate);
-
 export default mongoose.model("Product", productSchema);

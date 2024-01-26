@@ -16,14 +16,7 @@ const userSchema = Joi.object({
     "any.empty": `"password" không được bỏ trống`,
     "any.min": `"password" phải chứa ít nhất {#limit} ký tự`,
     "any.required": `"password" là trường bắt buộc`,
-}),
-rePassword: Joi.string().valid(Joi.ref("password")).required().messages({
-    "any.base": `"rePassword" phải là kiểu "text"`,
-    "any.empty": `"rePassword" không được bỏ trống`,
-    "any.only": `"rePassword" phải giống "password"`,
-    "any.required": `"rePassword" là trường bắt buộc`,
-}),
-  
+}),  
 });
 
 const userSignUpSchema = Joi.object({
@@ -44,13 +37,12 @@ const userSignUpSchema = Joi.object({
 export const signup = async (req, res) => {
   try {
    
-    const { name, email, password, rePassword,images } = req.body;
+    const { name, email, password,images } = req.body;
     const {error} = userSchema.validate({
         name,
         images,
         email,  
         password,
-        rePassword
     },
     {abortEarly:false})
     
@@ -116,10 +108,10 @@ export const signin = async (req, res) => {
         message: "Mật khẩu không đúng",
       });
     }
-    const token = Jwt.sign({ _id: checkEmail._id },"quang");
-    // , { expiresIn: "1h" }
+    const token = Jwt.sign({ _id: checkEmail._id },"quang", { expiresIn: "1h" });
+ 
     checkEmail.password = undefined
-    return res.json({
+    return res.status(200).json({
       message: "Đăng nhập thành công",
       data: checkEmail,
       accessToken: token,
