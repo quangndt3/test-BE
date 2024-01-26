@@ -1,14 +1,7 @@
 
-import joi from "joi"
+
 import Product from "../models/product";
-const { API_URL } = process.env
-const productSchema = joi.object({
-    name: joi.string().required(),
-    price: joi.number().required(),
-    images: joi.array().required(),
-    categoryId: joi.string(),
-    desc: joi.string(),
-})
+import { productSchema } from "../validate/product";
 
 export const getOne = async(req,res) =>{
     try {

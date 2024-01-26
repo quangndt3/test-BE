@@ -1,39 +1,11 @@
-import Joi from "joi";
+
 import user from "../models/user";
 import bcryptjs from "bcryptjs"
 import Jwt  from "jsonwebtoken";
-const userSchema = Joi.object({
-  name: Joi.string(),
-  images: Joi.string(),
-  email: Joi.string().email().required().messages({
-    "string.base": `"email" phải là kiểu "text"`,
-    "string.empty": `"email" không được bỏ trống`,
-    "string.email": `"email" phải có định dạng là email`,
-    "any.required": `"email" là trường bắt buộc`,
-  }),
-  password: Joi.string().min(6).required().messages({
-    "any.base": `"password" phải là kiểu "text"`,
-    "any.empty": `"password" không được bỏ trống`,
-    "any.min": `"password" phải chứa ít nhất {#limit} ký tự`,
-    "any.required": `"password" là trường bắt buộc`,
-}),  
-});
+import { userSchema } from "../validate/user";
 
-const userSignUpSchema = Joi.object({
-  email: Joi.string().email().required().messages({
-    "string.base": `"email" phải là kiểu "text"`,
-    "string.empty": `"email" không được bỏ trống`,
-    "string.email": `"email" phải có định dạng là email`,
-    "any.required": `"email" là trường bắt buộc`,
-  }),
-  password: Joi.string().min(6).required().messages({
-    "any.base": `"password" phải là kiểu "text"`,
-    "any.empty": `"password" không được bỏ trống`,
-    "any.min": `"password" phải chứa ít nhất {#limit} ký tự`,
-    "any.required": `"password" là trường bắt buộc`,
-}),
-  
-});
+
+
 export const signup = async (req, res) => {
   try {
    
@@ -85,7 +57,7 @@ export const signup = async (req, res) => {
 export const signin = async (req, res) => {
   try {
     const {email, password } = req.body;
-    const {error} = userSignUpSchema.validate({
+    const {error} = userSchema.validate({
         email,
         password,
     },
